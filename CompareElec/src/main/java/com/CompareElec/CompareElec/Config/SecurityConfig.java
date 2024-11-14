@@ -23,6 +23,7 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .cors(AbstractHttpConfigurer::disable)
                 // REST API이므로 basic auth 및 csrf 보안을 사용하지 않음
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
@@ -37,6 +38,7 @@ public class SecurityConfig  {
                         .requestMatchers("/product/add","product/show/**").hasAuthority("User")
                         .requestMatchers("detailpage/add/**").hasAuthority("User")
                         .requestMatchers("seller/show/**").hasAuthority("User")
+                        .requestMatchers("cart/**").hasAuthority("User")
 
                         // 이 밖에 모든 요청에 대해서 인증을 필요로 한다는 설정
                         .anyRequest().not().authenticated()

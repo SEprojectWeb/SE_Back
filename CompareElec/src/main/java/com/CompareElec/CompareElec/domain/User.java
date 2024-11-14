@@ -29,17 +29,17 @@ public class User implements UserDetails {
     private String name;
 
     @Column
-    private String phoneNumber;
+    private String phonenumber;
     @Column
-    private String nickname;
+    private String user_type;
 
 
-    public User(String userid, String password, String name, String phoneNumber, String nickname,List<String> isuser) {
+    public User(String userid, String password, String name, String phoneNumber,String user_type,List<String> isuser) {
         this.userid = userid;
         this.password = password;
         this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.nickname = nickname;
+        this.phonenumber = phoneNumber;
+        this.user_type = user_type;
         this.roles = isuser;
     }
 
