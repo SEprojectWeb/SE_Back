@@ -3,7 +3,7 @@ spring:
     activate:
       on-profile: local
   datasource:
-    url: "jdbc:h2:mem:breadend;MODE=MYSQL;NON_KEYWORDS=USER"
+    url: "jdbc:h2:mem:CompareElec;MODE=MYSQL;NON_KEYWORDS=USER"
     username: "sa"
     password: ""
     driver-class-name: org.h2.Driver
@@ -40,7 +40,7 @@ spring:
         dialect: org.hibernate.dialect.MySQL8Dialect
         use_sql_comments: true
 springdoc:
-  packages-to-scan: com.BreadMania.BreadMania.controller
+  packages-to-scan: com.CompareElec.CompareElec.controller
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
