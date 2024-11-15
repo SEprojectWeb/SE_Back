@@ -34,6 +34,9 @@ public class User implements UserDetails {
     private String user_type;
 
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Review> reviewList = new ArrayList<>();
+
     public User(String userid, String password, String name, String phoneNumber,String user_type,List<String> isuser) {
         this.userid = userid;
         this.password = password;
