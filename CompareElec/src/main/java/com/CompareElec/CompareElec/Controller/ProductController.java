@@ -2,6 +2,7 @@ package com.CompareElec.CompareElec.Controller;
 
 
 import com.CompareElec.CompareElec.DTO.Product.ProductCreateRequest;
+import com.CompareElec.CompareElec.DTO.Response.ProductInfo;
 import com.CompareElec.CompareElec.Service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -32,5 +33,13 @@ public class ProductController {
     public void addProduct(@RequestPart("product")@Validated ProductCreateRequest request, @RequestPart("images")List<MultipartFile> images){
         productService.addProduct(request,images);
     }
+
+    //카테고리 별 제품 전체 불러오기
+    @GetMapping("/show")
+    @Operation(summary = "카테고리 별로 제품 전체 불러오기")
+    public List<ProductInfo> showProducts(@RequestParam String producttype){
+        return productService.showProducts(producttype);
+    }
+
 
 }

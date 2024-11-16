@@ -1,5 +1,6 @@
 package com.CompareElec.CompareElec.domain;
 
+import com.CompareElec.CompareElec.domain.IMG.ProductThumbnail;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Table(name="product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,32 +22,47 @@ public class Product {
     private String name;
     private Integer price;
     private String brand;
-    private Integer energy_efficiency;
+
+    @Column(name = "energy_efficiency")
+    private Integer energyEfficiency;
+
     private String size;
-    private Float power_consume;
+
+    @Column(name = "power_consume")
+    private Float powerConsume;
+
     private Float weight;
     private String type;
-    private String product_type;
-    private String video_quality;
+
+    @Column(name = "product_type")
+    private String productType;
+
+    @Column(name = "video_quality")
+    private String videoQuality;
+
     private Float volume;
-    private String etc_info;
+
+    @Column(name = "etc_info")
+    private String etcInfo;
 
     @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
     List<Review> reviews = new ArrayList<>();
 
+    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+    List<ProductThumbnail> thumbnails = new ArrayList<>();
 
     public Product(String name,Integer price,String brand,Integer energy_efficiency,String size,Float power_consume,Float weight,String type,String product_type,String video_quality,Float volume,String etc_info) {
         this.name = name;
         this.price = price;
         this.brand = brand;
-        this.energy_efficiency = energy_efficiency;
+        this.energyEfficiency = energy_efficiency;
         this.size = size;
-        this.power_consume = power_consume;
+        this.powerConsume = power_consume;
         this.weight = weight;
         this.type = type;
-        this.product_type = product_type;
-        this.video_quality = video_quality;
+        this.productType = product_type;
+        this.videoQuality = video_quality;
         this.volume = volume;
-        this.etc_info = etc_info;
+        this.etcInfo = etc_info;
     }
 }
