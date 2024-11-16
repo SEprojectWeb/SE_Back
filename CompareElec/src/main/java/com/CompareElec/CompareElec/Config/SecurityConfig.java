@@ -22,6 +22,7 @@ public class SecurityConfig  {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+
         return httpSecurity
                 .cors(AbstractHttpConfigurer::disable)
                 // REST API이므로 basic auth 및 csrf 보안을 사용하지 않음
@@ -33,19 +34,13 @@ public class SecurityConfig  {
                         // 해당 API에 대해서는 모든 요청을 허가
                         .requestMatchers("/user/**").permitAll()
                         // USER 권한이 있어야 요청할 수 있음
-                        .requestMatchers("/user/test").hasAuthority("User")
-                        .requestMatchers("/user/get-username").hasAuthority("User")
-                        .requestMatchers("/product/add","product/show/**").hasAuthority("User")
-                        .requestMatchers("detailpage/add/**").hasAuthority("User")
-                        .requestMatchers("seller/show/**").hasAuthority("User")
-                        .requestMatchers("cart/**").hasAuthority("User")
-
                         // 이 밖에 모든 요청에 대해서 인증을 필요로 한다는 설정
                         .anyRequest().not().authenticated()
                 )
                 // JWT 인증을 위하여 직접 구현한 필터를 UsernamePasswordAuthenticationFilter 전에 실행
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .build();
+
     }
 
     @Bean
