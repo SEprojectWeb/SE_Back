@@ -46,6 +46,8 @@ public class UserController {
     public JwtToken signIn(@RequestBody SignInDto signInDto) {
         String username = signInDto.getUserid();
         String password = signInDto.getPassword();
+        System.out.println(username);
+        System.out.println(password);
         JwtToken jwtToken = userService.signIn(username, password);
         log.info("request username = {}, password = {}", username, password);
         log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
@@ -69,13 +71,13 @@ public class UserController {
     }
 
 
-    @GetMapping("/findUserid")
+    @PostMapping("/findUserid")
     @Operation(summary = "이름,전화번호 이용해서 아이디 찾기")
     public String findUserid(@RequestBody findIdDTO findDTO) {
         return userService.findUserid(findDTO);
     }
 
-    @GetMapping("/findPassword")
+    @PostMapping("/findPassword")
     @Operation(summary = "아이디,이름,전화번호 이용해서 비밀번호 찾기")
     public String findPassword(@RequestBody findPasswdDTO findDTO) {
         return userService.findPassword(findDTO);

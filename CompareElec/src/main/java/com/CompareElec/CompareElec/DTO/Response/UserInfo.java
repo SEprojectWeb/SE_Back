@@ -13,9 +13,9 @@ public class UserInfo {
     private String phonenumber;
 
     public UserInfo(User user) {
-        this.userid = userid;
-        this.name = name;
-        this.user_type = user.getUser_type();
+        this.userid = user.getUserid();
+        this.name = user.getName();
+        this.user_type = user.getUserType();
         this.phonenumber = user.getPhonenumber();
 
     }

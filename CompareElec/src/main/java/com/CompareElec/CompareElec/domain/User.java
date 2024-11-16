@@ -2,20 +2,19 @@ package com.CompareElec.CompareElec.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Builder
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name="member")
 @Setter
 public class User implements UserDetails {
@@ -30,8 +29,9 @@ public class User implements UserDetails {
 
     @Column
     private String phonenumber;
-    @Column
-    private String user_type;
+
+    @Column(name = "user_type")
+    private String userType;
 
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
@@ -42,7 +42,7 @@ public class User implements UserDetails {
         this.password = password;
         this.name = name;
         this.phonenumber = phoneNumber;
-        this.user_type = user_type;
+        this.userType = user_type;
         this.roles = isuser;
     }
 

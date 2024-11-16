@@ -63,7 +63,13 @@ public class UserService {
         JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
         User user = userRepository.findByUserid(userid).orElse(null);
 
-        jwtToken.setUserType(user.getUser_type());
+        System.out.println("id :"+user.getUserid());
+        System.out.println("pw :"+user.getPassword());
+        System.out.println("name :"+user.getUsername());
+        System.out.println("phonenum :"+user.getPhonenumber());
+        System.out.println("userType :"+user.getUserType());
+
+        jwtToken.setUserType(user.getUserType());
         return jwtToken;
     }
 
