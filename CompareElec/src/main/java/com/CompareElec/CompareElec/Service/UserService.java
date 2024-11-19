@@ -4,6 +4,7 @@ import com.CompareElec.CompareElec.DTO.User.UserCreateRequest;
 import com.CompareElec.CompareElec.DTO.JWT.JwtToken;
 import com.CompareElec.CompareElec.DTO.JWT.JwtTokenProvider;
 import com.CompareElec.CompareElec.DTO.Response.UserInfo;
+import com.CompareElec.CompareElec.DTO.User.UserInfoRequest;
 import com.CompareElec.CompareElec.DTO.User.findIdDTO;
 import com.CompareElec.CompareElec.DTO.User.findPasswdDTO;
 import com.CompareElec.CompareElec.domain.User;
@@ -122,6 +123,15 @@ public class UserService {
         return user.getPassword();
     }
 
-
+    // 사용자 정보 수정
+    @Transactional
+    public UserInfo updateUserInfo(String userid, UserInfoRequest userInfoRequest) {
+        User user = userRepository.findByUserid(userid)
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+        user.setName(userInfoRequest.getName());
+        user.setPhonenumber(userInfoRequest.getPhonenumber());
+        userRepository.save(user);
+        return new UserInfo(user);
+    }
 
 }

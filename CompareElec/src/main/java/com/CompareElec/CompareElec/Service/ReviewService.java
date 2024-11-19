@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReviewService {
     @Autowired
@@ -44,4 +46,9 @@ public class ReviewService {
 
     }
 
+    @Transactional
+    // 작성한 리뷰 목록 조회
+    public List<Review> getUserReviews(String userid) {
+        return reviewRepository.findAllByUser_Userid(userid);
+    }
 }
