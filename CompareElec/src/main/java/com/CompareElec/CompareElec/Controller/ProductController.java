@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -41,5 +42,13 @@ public class ProductController {
         return productService.showProducts(producttype);
     }
 
-
+    @GetMapping("/search")
+    @Operation(summary = "제품 검색")
+    public ResponseEntity<List<ProductInfo>> searchProducts(
+            @RequestParam("keyword") String keyword,
+            @RequestParam(value = "productType", required = false) String productType
+    ) {
+        List<ProductInfo> products = productService.searchProducts(keyword, productType);
+        return ResponseEntity.ok(products);
+    }
 }

@@ -64,4 +64,24 @@ public class ProductService {
                 })
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public List<ProductInfo> searchProducts(String keyword, String productType) {
+        // 키워드와 제품 타입으로 필터링된 제품 목록 조회
+        List<Product> products = productRepository.findProductsByKeyword(keyword, productType);
+
+        // 각 제품에 이미지 경로 포함
+        return products.stream()
+                .map(product -> {
+                    // ProductThumbnailRepository에서 이미지 경로 조회
+                    List<String> imagePaths = productThumbnailRepository.findByProduct_Productid(product.getProductid())
+                            .stream()
+                            .map(ProductThumbnail::getImg_path)
+                            .collect(Collectors.toList());
+
+                    // ProductInfo 생성
+                    return new ProductInfo(product, imagePaths);
+                })
+                .collect(Collectors.toList());
+    }
 }
