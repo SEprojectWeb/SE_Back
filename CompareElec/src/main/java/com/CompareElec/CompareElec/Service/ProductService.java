@@ -1,12 +1,15 @@
 package com.CompareElec.CompareElec.Service;
 
 
+import com.CompareElec.CompareElec.DTO.Product.ProductComparison;
 import com.CompareElec.CompareElec.DTO.Product.ProductCreateRequest;
 import com.CompareElec.CompareElec.DTO.Response.ProductInfo;
 import com.CompareElec.CompareElec.domain.IMG.ProductThumbnail;
 import com.CompareElec.CompareElec.domain.IMG.ProductThumbnailRepository;
 import com.CompareElec.CompareElec.domain.Product;
 import com.CompareElec.CompareElec.domain.ProductRepository;
+import com.CompareElec.CompareElec.domain.Review;
+import com.CompareElec.CompareElec.domain.ReviewRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,8 @@ public class ProductService {
     ProductThumbnailService productThumbnailService;
     @Autowired
     ProductThumbnailRepository productThumbnailRepository;
+    @Autowired
+    ReviewRepository reviewRepository;
 
 
     @Transactional
@@ -81,6 +86,20 @@ public class ProductService {
 
                     // ProductInfo 생성
                     return new ProductInfo(product, imagePaths);
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<ProductComparison> compareProducts(List<String> productNames) {
+        List<Product> products = productRepository.findByNameIn(productNames);
+
+        return products.stream()
+                .map(product -> {
+                    // 리뷰를 조회하기 위해 ReviewRepository를 사용
+                    List<Review> reviews = reviewRepository.findByProduct_Productid(product.getProductid());
+
+                    return new ProductComparison(product, reviews);
                 })
                 .collect(Collectors.toList());
     }

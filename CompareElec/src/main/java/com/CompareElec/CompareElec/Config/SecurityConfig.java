@@ -33,10 +33,10 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/products/search").permitAll()
                         // 해당 API에 대해서는 모든 요청을 허가
                         .requestMatchers("/mypage/**").hasAuthority("User")
                         .requestMatchers("/review/**").hasAuthority("User")
+                        .requestMatchers("/products/**").hasAuthority("User")
                         // USER 권한이 있어야 요청할 수 있음
                         // 이 밖에 모든 요청에 대해서 인증을 필요로 한다는 설정
                         .anyRequest().not().authenticated()

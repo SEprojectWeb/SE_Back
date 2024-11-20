@@ -1,7 +1,9 @@
 package com.CompareElec.CompareElec.Controller;
 
 
+import com.CompareElec.CompareElec.DTO.Product.ProductComparison;
 import com.CompareElec.CompareElec.DTO.Product.ProductCreateRequest;
+import com.CompareElec.CompareElec.DTO.Product.ProductComparisonRequest;
 import com.CompareElec.CompareElec.DTO.Response.ProductInfo;
 import com.CompareElec.CompareElec.Service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -50,5 +52,12 @@ public class ProductController {
     ) {
         List<ProductInfo> products = productService.searchProducts(keyword, productType);
         return ResponseEntity.ok(products);
+    }
+
+    @PostMapping("/compare")
+    @Operation(summary = "제품 비교")
+    public ResponseEntity<List<ProductComparison>> compareProducts(@RequestBody ProductComparisonRequest request) {
+        List<ProductComparison> comparisons = productService.compareProducts(request.getProductNames());
+        return ResponseEntity.ok(comparisons);
     }
 }

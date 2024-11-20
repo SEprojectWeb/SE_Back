@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByProductid(Long productid);
     List<Product> findAllByProductType(String producttype);
+    List<Product> findByNameIn(List<String> names);
 
     // 키워드 검색 메서드
     @Query("SELECT p FROM Product p WHERE " +
